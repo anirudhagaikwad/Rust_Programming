@@ -1,0 +1,1 @@
+E:\ProgrammingLang\Rust\fundamentals\rust_basics\target\debug\rust_basics.exe: E:\ProgrammingLang\Rust\fundamentals\rust_basics\src\main.rs E:\ProgrammingLang\Rust\fundamentals\rust_basics\src\variables\mod.rs E:\ProgrammingLang\Rust\fundamentals\rust_basics\src\variables\var.rs

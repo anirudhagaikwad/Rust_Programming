@@ -36,7 +36,7 @@ use std::any::type_name;
 // Function to print the type of a variable
 //generic function in Rust that takes a reference to a value of any type (T) and prints the type of that value
 //_: &T  : The underscore (_) is a placeholder for the parameter name, indicating that the value is not used within the function. The parameter is a reference (&) to a value of type T.
-fn print_type_of<T>(_: &T) {
+pub fn print_type_of<T>(_: &T) {
     println!("type of {}", type_name::<T>()); //call to the type_name function from the std::any module.
     //This function returns a string representation of the type of the provided value or type.
 }

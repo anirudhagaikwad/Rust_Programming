@@ -1,0 +1,162 @@
+use wasm_bindgen::prelude::*;
+/*
+How to Create Application :
+### Steps to Host the Rust Calculator on the Web
+1. Set Up the Rust Environment with WebAssembly Target:
+   Ensure you have Rust installed. If not, you can install it from [rustup.rs](https://rustup.rs/).
+
+   Install the WebAssembly target:
+   ```sh
+   rustup target add wasm32-unknown-unknown
+   ```
+
+2. Create a New Rust Project:
+   Create a new Rust project if you don't have one already:
+   ```sh
+   cargo new wasm_calculator
+   cd wasm_calculator
+   ```
+
+3. Modify the `Cargo.toml` File:
+   Add the necessary dependencies for WebAssembly in `Cargo.toml`:
+   ```toml
+   [dependencies]
+   wasm-bindgen = "0.2"
+
+   [lib]
+   crate-type = ["cdylib", "rlib"]
+   ```
+
+4. Write the Rust Code for the Calculator:
+   Replace the contents of `src/lib.rs` with the following code:
+
+5. Build the WebAssembly Binary:
+   Use `wasm-pack` to build the project. You might need to install `wasm-pack` first if you don't have it:
+   ```sh
+   cargo install wasm-pack
+   ```
+
+   Then, build the project:
+   ```sh
+   wasm-pack build --target web
+   ```
+
+6. Set Up the Web Application:
+   Create an `index.html` file with the following content:
+
+7. Serve the Web Application:
+   You can serve the files using a simple HTTP server. If you have Python installed, you can use the following command:
+   ```sh
+   python -m http.server
+   ```
+   Open your web browser and navigate to `http://localhost:8000`.
+
+### Explanation:
+- Rust Code (`lib.rs`): This code defines a `calculate` function that performs basic arithmetic operations based on the user's choice. The function is exposed to JavaScript using the `wasm_bindgen` attribute.
+- HTML (`index.html`): This file sets up a basic web page with input fields for the user to enter their choice and numbers. It also includes a button to perform the calculation.
+- JavaScript (`index.html`): The script imports the WebAssembly module and defines the `calculate` function that reads user input, calls the `calculate` function from the WebAssembly module, and displays the result.
+
+*/
+#[wasm_bindgen]
+pub fn calculate(choice: u32, num1: f64, num2: f64) -> String {
+    let result = match choice {
+        1 => num1 + num2,
+        2 => num1 - num2,
+        3 => num1 * num2,
+        4 => {
+            if num2 != 0.0 {
+                num1 / num2
+            } else {
+                return "Error: Division by zero".to_string();
+            }
+        },
+        _ => return "Invalid choice".to_string(),
+    };
+    result.to_string()
+}
+
+/*
+### How WebAssembly Works Internally
+
+WebAssembly (Wasm) is a binary instruction format for a stack-based virtual machine. 
+It is designed to be a portable target for the compilation of high-level languages like
+Rust, C, and C++. Here's a step-by-step overview of how WebAssembly works internally:
+
+1. Source Code Compilation:
+   - The source code written in a high-level language (e.g., Rust) is compiled to WebAssembly bytecode using a compiler (e.g., `rustc` with `wasm32-unknown-unknown` target).
+   - The resulting WebAssembly module is a `.wasm` file, which contains the binary representation of the code.
+
+2. Loading the WebAssembly Module:
+   - In a web application, the `.wasm` file is loaded into the browser using JavaScript. This is typically done using the `WebAssembly.instantiateStreaming` or `WebAssembly.instantiate` function.
+
+3. Instantiation:
+   - The WebAssembly module is instantiated, creating an instance of the module. This instance includes the WebAssembly memory, table, and imported and exported functions.
+   - The instantiation process sets up the execution environment for the WebAssembly code.
+
+4. Execution:
+   - The JavaScript code can call the exported functions from the WebAssembly module. These functions execute in a sandboxed environment within the browser.
+   - WebAssembly code can interact with JavaScript via imports and exports. For example, WebAssembly can call JavaScript functions, and JavaScript can call WebAssembly functions.
+
+5. Memory Management:
+   - WebAssembly uses a linear memory model, where a single contiguous memory block is used. Memory can be expanded but not shrunk.
+   - WebAssembly interacts with this memory through load and store operations.
+
+6. Security and Sandboxing:
+   - WebAssembly runs in a sandboxed environment, similar to JavaScript, ensuring it cannot directly access the host system's resources.
+   - This sandboxing provides security, making it difficult for malicious code to perform harmful actions.
+
+### Files Required to Transfer the Program to Another Machine
+
+To transfer the WebAssembly calculator program from one machine to another, you need to include the following files:
+
+1. WebAssembly Binary File (`.wasm`):
+   - This is the compiled WebAssembly module that contains the binary representation of your Rust code.
+   - Example: `pkg/wasm_calculator_bg.wasm`
+
+2. JavaScript Bindings (`.js`):
+   - These files contain the JavaScript bindings generated by `wasm-pack` that help in loading and interacting with the WebAssembly module.
+   - Example: `pkg/wasm_calculator.js` and `pkg/wasm_calculator_bg.js`
+
+3. HTML File (`index.html`):
+   - This file contains the HTML structure and JavaScript code that loads the WebAssembly module and interacts with it.
+   - Example: `index.html`
+
+4. Optional: Favicon (`favicon.ico`):
+   - If you have included a favicon in your project, you should transfer this file as well.
+   - Example: `favicon.ico`
+
+### Example Directory Structure to Transfer
+
+Your project directory should look something like this:
+
+```
+wasm_calculator/
+├── Cargo.toml
+├── src/
+│   └── lib.rs
+├── pkg/
+│   ├── wasm_calculator.js
+│   ├── wasm_calculator_bg.js
+│   └── wasm_calculator_bg.wasm
+├── index.html
+└── favicon.ico (optional)
+```
+
+### Steps to Transfer the Program:
+
+1. Copy the Entire Project Directory:
+   - Copy the entire `wasm_calculator` directory to the new machine.
+
+2. Ensure the Environment is Set Up:
+   - Ensure that the new machine has the necessary tools installed (e.g., Rust, `wasm-pack`, and a web server).
+
+3. Serve the Application:
+   - Use a simple HTTP server to serve the files. For example, you can use Python's HTTP server:
+     ```sh
+     python -m http.server
+     ```
+   - Open a web browser and navigate to `http://localhost:8000` to run the application.
+
+
+
+*/

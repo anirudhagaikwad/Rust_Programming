@@ -1,0 +1,1 @@
+E:\ProgrammingLang\Rust\Rust_Programming\projects\wasm_calculator\target\wasm32-unknown-unknown\release\libwasm_calculator.rlib: E:\ProgrammingLang\Rust\Rust_Programming\projects\wasm_calculator\src\lib.rs

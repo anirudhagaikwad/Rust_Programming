@@ -1,0 +1,10 @@
+[package]
+name = "snake_game_terminal"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libc = "0.2.169"
+rand = "0.8.4"
+winapi={ version = "0.3.9", features = ["consoleapi", "synchapi", "handleapi", "processthreadsapi", "wincon", "winnt","fileapi"] }
+

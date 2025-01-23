@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee CRUD</title>
+</head>
+<body>
+    <h1>Employee CRUD Operations</h1>
+    
+    <button id="createButton">Create Employee</button>
+    <button id="readButton">Read Employees</button>
+    <button id="updateButton">Update Employee</button>
+    <button id="deleteButton">Delete Employee</button>
+
+    <div id="output"></div>
+    <script type="module">
+        import init, { create_employee, read_employees, update_employee, delete_employee } from './pkg/employee_crud_wasm.js';
+    
+        async function run() {
+            // Initialize the WebAssembly instance
+            await init();
+            console.log('WASM Initialized!');
+    
+            // Button event handlers
+            document.getElementById("createButton").addEventListener("click", () => {
+                const output = create_employee("Alice", 30, "Engineering");
+                document.getElementById("output").innerText = output;
+            });
+    
+            document.getElementById("readButton").addEventListener("click", () => {
+                const output = read_employees();
+                document.getElementById("output").innerText = output;
+            });
+    
+            document.getElementById("updateButton").addEventListener("click", () => {
+                const output = update_employee(1, "Alice", 31, "HR");
+                document.getElementById("output").innerText = output;
+            });
+    
+            document.getElementById("deleteButton").addEventListener("click", () => {
+                const output = delete_employee(1);
+                document.getElementById("output").innerText = output;
+            });
+        }
+    
+        run();
+    </script>
+    
+</body>
+</html>

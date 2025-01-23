@@ -1,0 +1,11 @@
+[package]
+name = "employee_crud_rocket"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rocket = "0.5.1"
+rocket_dyn_templates = "0.2.0"
+rusqlite = { version = "0.33.0", features = ["bundled"] }
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.137"

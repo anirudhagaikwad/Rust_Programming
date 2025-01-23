@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration and Login</title>
+    <script type="module">
+        import init, { UserAuth } from './pkg/user_auth_wasm.js';
+        import { SqlJsDatabase } from './src/sqlite.js';
+
+        async function main() {
+            await init();
+            const auth = new UserAuth();
+
+            document.getElementById('register').onclick = () => {
+                const username = document.getElementById('reg-username').value;
+                const password = document.getElementById('reg-password').value;
+                if (auth.register(username, password)) {
+                    showMessage('Registration successful!', 'success');
+                } else {
+                    showMessage('User already exists!', 'error');
+                }
+            };
+
+            document.getElementById('login').onclick = () => {
+                const username = document.getElementById('login-username').value;
+                const password = document.getElementById('login-password').value;
+                if (auth.login(username, password)) {
+                    showMessage('Login successful!', 'success');
+                } else {
+                    showMessage('Invalid username or password!', 'error');
+                }
+            };
+        }
+
+        function showMessage(message, type) {
+            const messageBox = document.getElementById('message-box');
+            messageBox.innerText = message;
+            messageBox.className = type;
+            messageBox.style.display = 'block';
+            setTimeout(() => { messageBox.style.display = 'none'; }, 3000);
+        }
+
+        main();
+    </script>
+    <style>
+        #message-box {
+            display: none;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .success {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .error {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Registration and Login</h1>
+    <div id="message-box"></div>
+    <h2>Register</h2>
+    <input type="text" id="reg-username" placeholder="Username">
+    <input type="password" id="reg-password" placeholder="Password">
+    <button id="register">Register</button>
+    <h2>Login</h2>
+    <input type="text" id="login-username" placeholder="Username">
+    <input type="password" id="login-password" placeholder="Password">
+    <button id="login">Login</button>
+</body>
+</html>

@@ -1,5 +1,5 @@
+use rocket::{post, get, put, delete, http::Status};
 use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket::{post, get, http::Status};
 use argon2::{password_hash::{SaltString, PasswordHasher}, Argon2, Algorithm, Version, Params};
 use crate::db::DB;
 use rusqlite::params;
@@ -85,4 +85,66 @@ pub fn get_employees() -> Result<Json<Vec<Employee>>, Status> {
         .collect();
 
     Ok(Json(employees))
+}
+
+// Update an existing employee
+#[put("/employee/<id>", data = "<employee>")]
+pub fn update_employee(id: i32, employee: Json<Employee>) -> Result<Json<ApiResponse>, Status> {
+    let conn = DB.get_conn();
+
+    // Hash the password if it's provided
+    let password_hash = if !employee.password.is_empty() {
+        let argon2 = Argon2::new(
+            Algorithm::Argon2id,
+            Version::V0x13,
+            Params::default(),
+        );
+        let salt = SaltString::generate(&mut rand::thread_rng());
+        argon2
+            .hash_password(employee.password.as_bytes(), &salt)
+            .map_err(|_| Status::InternalServerError)?
+            .to_string()
+    } else {
+        "".to_string() // No change to password
+    };
+
+    let result = conn.execute(
+        "UPDATE employees SET name = ?1, position = ?2, email = ?3, password_hash = ?4 WHERE id = ?5",
+        params![
+            employee.name,
+            employee.position,
+            employee.email,
+            password_hash,
+            id
+        ],
+    );
+
+    match result {
+        Ok(updated) if updated > 0 => Ok(Json(ApiResponse {
+            message: "Employee updated successfully".to_string(),
+            data: Some(employee.into_inner()), // Return updated employee data
+        })),
+        Ok(_) => Err(Status::NotFound), // Employee with the given ID was not found
+        Err(_) => Err(Status::InternalServerError),
+    }
+}
+
+// Delete a specific employee
+#[delete("/employee/<id>")]
+pub fn delete_employee(id: i32) -> Result<Json<ApiResponse>, Status> {
+    let conn = DB.get_conn();
+
+    let result = conn.execute(
+        "DELETE FROM employees WHERE id = ?1",
+        params![id],
+    );
+
+    match result {
+        Ok(deleted) if deleted > 0 => Ok(Json(ApiResponse {
+            message: "Employee deleted successfully".to_string(),
+            data: None,
+        })),
+        Ok(_) => Err(Status::NotFound), // Employee with the given ID was not found
+        Err(_) => Err(Status::InternalServerError),
+    }
 }

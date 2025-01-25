@@ -1,0 +1,20 @@
+<!-- if you're not using trunk or prefer to handle the HTML and WebAssembly setup manually, you can create the index.html file yourself. Here's how it works:
+Without trunk: You would manually handle the connection between your WebAssembly code and the browser using wasm-bindgen and ensure the proper loading of the generated .wasm and JavaScript files.
+With trunk: trunk automates many of these steps, such as generating index.html with the right configurations for loading WebAssembly and bundling everything together. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app"></div>
+    <script type="module">
+        import init from './pkg/rest_employee_crud_frontend.js';
+        init();
+    </script>
+</body>
+</html>

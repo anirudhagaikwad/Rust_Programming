@@ -9,9 +9,14 @@ use routes::*;
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![create_employee, get_employees]) // Add other routes here
+        .mount("/", routes![
+            create_employee,  // Create employee
+            get_employees,    // Get all employees
+            update_employee,  // Update employee
+            delete_employee   // Delete employee
+        ]) // Mounting all the routes
 }
-
+ 
 /*
 
 ### Tested Routes using POSTMAN

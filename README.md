@@ -19,27 +19,26 @@ A collection of command-line based projects. Each project title includes the cur
 
 | **Project Title** | **Current Status** |
 |-------------------|--------------------|
-| Console App 1     | Completed          |
-| Console App 2     | In Progress        |
-| Console App 3     | Not Started        |
+| https://github.com/anirudhagaikwad/Rust_Programming/tree/main/projects/console_projects/calculator            | Completed          |
+| https://github.com/anirudhagaikwad/Rust_Programming/tree/main/projects/console_projects/crud_operation        | Completed          |
+| https://github.com/anirudhagaikwad/Rust_Programming/tree/main/projects/console_projects/snake_game_terminal   | In Progress        |
 
 ### b) **Rocket Projects**
 This category contains projects focused on rocket science, space exploration, or similar themes.
 
 | **Project Title** | **Current Status** |
 |-------------------|--------------------|
-| Rocket Project 1  | Completed          |
-| Rocket Project 2  | In Progress        |
-| Rocket Project 3  | Not Started        |
+| https://github.com/anirudhagaikwad/Rust_Programming/tree/main/projects/rocket_projects/rest_employee_crud  | Completed          |
+| https://github.com/anirudhagaikwad/Rust_Programming/tree/main/projects/rocket_projects/employee_crud_rocket  | In Progress        |
+
 
 ### c) **WASM Projects**
 WebAssembly (WASM) projects, showcasing my exploration into performance optimizations on the web.
 
 | **Project Title** | **Current Status** |
 |-------------------|--------------------|
-| WASM App 1        | Completed          |
-| WASM App 2        | In Progress        |
-| WASM App 3        | Not Started        |
+| https://github.com/anirudhagaikwad/Rust_Programming/tree/main/projects/wasm_projects/wasm_calculator       | Completed          |
+| Other All      | In Progress        |
 
 ---
 

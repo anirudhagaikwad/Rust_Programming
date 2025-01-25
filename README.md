@@ -1,5 +1,5 @@
 # Projects Overview
-Welcome to my GitHub repository! Below you'll find a collection of my projects, organized into various categories based on their type and current status. 
+Welcome to my Rust_Programming repository! Below you'll find a collection of my projects, organized into various categories based on their type and current status. 
 Feel free to explore each one, and don't hesitate to reach out if you have any questions or suggestions!
 ---
 ## 1. **Fundamentals**
@@ -7,9 +7,7 @@ This section contains a list of foundational projects that I've worked on, each 
 
 | **Project Title** | **Current Status** |
 |-------------------|--------------------|
-| Project 1         | In Progress        |
-| Project 2         | Completed          |
-| Project 3         | Not Started        |
+| https://github.com/anirudhagaikwad/Rust_Programming/tree/main/fundamentals/rust_basics        | In Progress        |
 
 ---
 
